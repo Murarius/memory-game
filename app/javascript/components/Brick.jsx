@@ -3,8 +3,8 @@ import PropTypes from "prop-types"
 class Brick extends React.Component {
   render () {
     return (
-      <div>
-        brick
+      <div className='brick'>
+
       </div>
     )
   }
