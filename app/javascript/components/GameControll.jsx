@@ -13,12 +13,26 @@ class GameControll extends React.Component {
       max_difficulty: 4
     }
 
-    this.handleChange = this.handleChange.bind(this)
+    this.changeUp = this.changeUp.bind(this)
+    this.changeDown = this.changeDown.bind(this)
   }
 
-  handleChange(event) {
-    var key = event.target.name
-    var value = parseInt(event.target.value)
+  changeUp(event) {
+    event.preventDefault()
+    var key = event.currentTarget.name
+
+    var value = this.state[key] + 1
+    value = this.valueValidation(key, value)
+
+    this.setState({[key]: value})
+    this.props.changeGameOptions(key, value)
+  }
+
+  changeDown(event) {
+    event.preventDefault();
+    var key = event.currentTarget.name
+
+    var value = this.state[`${key}`] - 1
     value = this.valueValidation(key, value)
 
     this.setState({[key]: value})
@@ -26,7 +40,7 @@ class GameControll extends React.Component {
   }
 
   valueValidation(key, value) {
-    var max_value = this.state[`max_${key}`];
+    var max_value = this.state[`max_${key}`]
 
     if (value < 2) {
       return 2
@@ -43,18 +57,21 @@ class GameControll extends React.Component {
     return (
       <div className='game-controll'>
         <div className='input'>
-          <label>Width:</label>
-          <input type='number' name='width' onChange={this.handleChange} value={this.state.width} />
+          <label>Width: <span>{this.state.width}</span></label>
+          <a href='#' name='width' onClick={this.changeUp}><i className="fa fa-caret-square-o-up"></i></a>
+          <a href='#' name='width' onClick={this.changeDown}><i className="fa fa-caret-square-o-down"></i></a>
         </div>
 
         <div className='input'>
-          <label>Height:</label>
-          <input type='number' name='height' onChange={this.handleChange} value={this.state.height} />
+          <label>Height: <span>{this.state.height}</span></label>
+            <a href='#' name='height' onClick={this.changeUp}><i className="fa fa-caret-square-o-up"></i></a>
+            <a href='#' name='height' onClick={this.changeDown}><i className="fa fa-caret-square-o-down"></i></a>
         </div>
 
         <div className='input'>
-          <label>Difficulty:</label>
-          <input type='number' name='difficulty' onChange={this.handleChange} value={this.state.difficulty} />
+          <label>Difficulty: <span>{this.state.difficulty}</span></label>
+            <a href='#' name='difficulty' onClick={this.changeUp}><i className="fa fa-caret-square-o-up"></i></a>
+            <a href='#' name='difficulty' onClick={this.changeDown}><i className="fa fa-caret-square-o-down"></i></a>
         </div>
       </div>
     )
