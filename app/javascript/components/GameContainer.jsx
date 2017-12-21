@@ -8,9 +8,9 @@ class GameContainer extends React.Component {
     super(props);
 
     this.state = {
-      width: 6,
-      height: 3,
-      difficulty: 2
+      width: props.game_defaults.width,
+      height: props.game_defaults.height,
+      difficulty: props.game_defaults.difficulty
     }
 
     this.changeGameOptions = this.changeGameOptions.bind(this)
