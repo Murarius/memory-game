@@ -26,6 +26,7 @@ class GameContainer extends React.Component {
         <GameControll width={this.state.width}
                       height={this.state.height}
                       difficulty={this.state.difficulty}
+                      max_params={this.props.max_params}
                       changeGameOptions={this.changeGameOptions}/>
         <Bricks width={this.state.width}
                 height={this.state.height} />

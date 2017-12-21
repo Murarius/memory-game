@@ -8,9 +8,9 @@ class GameControll extends React.Component {
       width: this.props.width,
       height: this.props.height,
       difficulty: this.props.difficulty,
-      max_width: 16,
-      max_height: 8,
-      max_difficulty: 4
+      max_width: this.props.max_params.width,
+      max_height: this.props.max_params.height,
+      max_difficulty: this.props.max_params.difficulty
     }
 
     this.changeUp = this.changeUp.bind(this)
