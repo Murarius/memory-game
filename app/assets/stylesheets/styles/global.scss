@@ -102,8 +102,8 @@ body {
 
   &.green {
     background-color: $color-3-green;
-    border-color: darken($color-3-green, 50%);
-    color: darken($color-3-green, 50%);
+    border-color: darken($color-3-green, 60%);
+    color: darken($color-3-green, 60%);
 
     &:hover {
       background-color: darken($color-3-green, 10%);

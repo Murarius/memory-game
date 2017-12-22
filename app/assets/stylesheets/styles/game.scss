@@ -31,6 +31,7 @@
     padding-top: 24px;
 
     .controll {
+      user-select: none;
       font-size: 26px;
 
       label {
@@ -93,6 +94,7 @@
     position: absolute;
     right: -110px;
     top: 6px;
+    user-select: none;
     width: 70px;
   }
 }
