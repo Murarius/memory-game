@@ -18,12 +18,12 @@ RSpec.feature 'GameControll', type: :feature, js: true do
     initial_width = Game::DEFAULTS[:width]
     initial_height = Game::DEFAULTS[:height]
 
-    find(:css, ".game-controll a[name='width'] .fa-caret-square-o-up").click
+    find(:css, ".game-controlls a[name='width'] .fa-caret-up").click
     bricks_count = initial_height * (initial_width + 1)
     expect(page).to have_css('.brick', count: bricks_count)
 
-    find(:css, ".game-controll a[name='width'] .fa-caret-square-o-down").click
-    find(:css, ".game-controll a[name='width'] .fa-caret-square-o-down").click
+    find(:css, ".game-controlls a[name='width'] .fa-caret-down").click
+    find(:css, ".game-controlls a[name='width'] .fa-caret-down").click
     bricks_count = initial_height * (initial_width - 1)
     expect(page).to have_css('.brick', count: bricks_count)
   end
@@ -34,12 +34,12 @@ RSpec.feature 'GameControll', type: :feature, js: true do
     initial_width = Game::DEFAULTS[:width]
     initial_height = Game::DEFAULTS[:height]
 
-    find(:css, ".game-controll a[name='height'] .fa-caret-square-o-up").click
+    find(:css, ".game-controlls a[name='height'] .fa-caret-up").click
     bricks_count = (initial_height + 1) * initial_width
     expect(page).to have_css('.brick', count: bricks_count)
 
-    find(:css, ".game-controll a[name='height'] .fa-caret-square-o-down").click
-    find(:css, ".game-controll a[name='height'] .fa-caret-square-o-down").click
+    find(:css, ".game-controlls a[name='height'] .fa-caret-down").click
+    find(:css, ".game-controlls a[name='height'] .fa-caret-down").click
     bricks_count = (initial_height - 1) * initial_width
     expect(page).to have_css('.brick', count: bricks_count)
   end
