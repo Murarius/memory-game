@@ -18,7 +18,6 @@ class GameControll extends React.Component {
   }
 
   changeUp(event) {
-    event.preventDefault()
     var key = event.currentTarget.name
 
     var value = this.state[key] + 1
@@ -29,7 +28,6 @@ class GameControll extends React.Component {
   }
 
   changeDown(event) {
-    event.preventDefault();
     var key = event.currentTarget.name
 
     var value = this.state[`${key}`] - 1
@@ -59,25 +57,25 @@ class GameControll extends React.Component {
         <div className='controll'>
           <label>Width:</label>
           <div className='value'>{this.state.width}</div>
-          <a href='#' name='width' className='caret' onClick={this.changeUp}><i className="fa fa-caret-up"></i></a>
-          <a href='#' name='width' className='caret' onClick={this.changeDown}><i className="fa fa-caret-down"></i></a>
+          <a name='width' className='caret' onClick={this.changeUp}><i className="fa fa-caret-up"></i></a>
+          <a name='width' className='caret' onClick={this.changeDown}><i className="fa fa-caret-down"></i></a>
         </div>
 
         <div className='controll'>
           <label>Height:</label>
           <div className='value'>{this.state.height}</div>
-          <a href='#' name='height' className='caret' onClick={this.changeUp}><i className="fa fa-caret-up"></i></a>
-          <a href='#' name='height' className='caret' onClick={this.changeDown}><i className="fa fa-caret-down"></i></a>
+          <a name='height' className='caret' onClick={this.changeUp}><i className="fa fa-caret-up"></i></a>
+          <a name='height' className='caret' onClick={this.changeDown}><i className="fa fa-caret-down"></i></a>
         </div>
 
         <div className='controll'>
           <label>Difficulty:</label>
           <div className='value'>{this.state.difficulty}</div>
-          <a href='#' name='difficulty' className='caret' onClick={this.changeUp}><i className="fa fa-caret-up"></i></a>
-          <a href='#' name='difficulty' className='caret' onClick={this.changeDown}><i className="fa fa-caret-down"></i></a>
+          <a name='difficulty' className='caret' onClick={this.changeUp}><i className="fa fa-caret-up"></i></a>
+          <a name='difficulty' className='caret' onClick={this.changeDown}><i className="fa fa-caret-down"></i></a>
         </div>
 
-        <a href='#' className='btn start red'>Start Game</a>
+        <div></div>
       </div>
     )
   }

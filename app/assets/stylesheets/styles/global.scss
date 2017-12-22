@@ -76,9 +76,14 @@ body {
   border: 4px solid $color-4-dark;
   border-radius: 5px;
   color: $color-4-dark;
+  cursor: pointer;
   display: inline-block;
   font-weight: bold;
+  height: 30px;
   letter-spacing: 1px;
+  line-height: 30px;
+  padding: 0 10px;
+  text-decoration: none;
 
   &:hover {
     background-color: $color-3-green;
