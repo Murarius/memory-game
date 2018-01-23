@@ -10,17 +10,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171221104934) do
+ActiveRecord::Schema.define(version: 20180123100313) do
 
   create_table "games", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "width"
     t.integer "height"
-    t.integer "dificulty"
+    t.integer "difficulty"
     t.datetime "ended_at"
     t.integer "score", default: 0
     t.text "meta"
+    t.string "code", limit: 20, null: false
+    t.index ["code"], name: "index_games_on_code", unique: true
   end
 
 end

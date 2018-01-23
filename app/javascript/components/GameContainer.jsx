@@ -12,7 +12,8 @@ class GameContainer extends React.Component {
       width: props.game_defaults.width,
       height: props.game_defaults.height,
       difficulty: props.game_defaults.difficulty,
-      game_running: false
+      game_running: false,
+      game_code: null
     }
 
     this.changeGameOptions = this.changeGameOptions.bind(this)
@@ -26,10 +27,38 @@ class GameContainer extends React.Component {
 
   toggleGameState(e) {
     if (this.state.game_running == true) {
-      this.setState({game_running: false})
+      this.handleGameStop()
     } else {
-      this.setState({game_running: true})
+      this.handleGameStart()
     }
+  }
+
+  handleGameStart() {
+    axios({
+      method: 'post',
+      url: '/games',
+      data: {
+        width: this.state.width,
+        height: this.state.height,
+        difficulty: this.state.difficulty
+      }
+    }).then(res => {
+      this.setState({game_running: true})
+      this.setState({game_code: res.data.code})
+    })
+  }
+
+  handleGameStop() {
+    axios({
+      method: 'delete',
+      url: '/games',
+      data: {
+        code: this.state.game_code,
+      }
+    }).then(res => {
+      this.setState({game_running: false})
+      this.setState({game_code: null})
+    })
   }
 
   controllButton() {
