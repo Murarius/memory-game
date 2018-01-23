@@ -1,7 +1,12 @@
 class GamesController < ActionController::API
   def create
-    game = Game.create game_params
-    render json: { code: game.code }
+    game = Game.new game_params
+
+    if game.save
+      render json: { code: game.code }
+    else
+      head :unprocessable_entity
+    end
   end
 
   def show
@@ -10,9 +15,13 @@ class GamesController < ActionController::API
 
   def destroy
     game = Game.find_by_code params[:code]
-    game.destroy
 
-    head :ok
+    if game.blank?
+      head :not_found
+    else
+      game.destroy
+      head :no_content
+    end
   end
 
   private

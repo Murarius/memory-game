@@ -23,7 +23,6 @@ gem 'font-awesome-rails'
 gem 'react-rails'
 gem 'webpacker'
 gem 'turbolinks', '~> 5'
-# Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 2.5'
 
 gem 'axios_rails'
@@ -34,6 +33,7 @@ group :development, :test do
   gem 'capybara-selenium'
   gem 'launchy'
   gem 'rspec-rails'
+  gem 'database_cleaner'
 end
 
 group :development do
