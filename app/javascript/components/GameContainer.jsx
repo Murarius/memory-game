@@ -76,9 +76,14 @@ class GameContainer extends React.Component {
   render () {
     let component = null;
     if (this.state.game_running) {
-      component = <GameStatus/>
+      component = <GameStatus
+                    game_code = {this.state.game_code}
+                    width={this.state.width}
+                    height={this.state.height}
+                    difficulty={this.state.difficulty}/>
     } else {
-      component = <GameControll width={this.state.width}
+      component = <GameControll
+                    width={this.state.width}
                     height={this.state.height}
                     difficulty={this.state.difficulty}
                     max_params={this.props.max_params}
