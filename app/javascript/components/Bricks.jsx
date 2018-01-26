@@ -29,16 +29,17 @@ class Bricks extends React.Component {
   renderRow(row) {
     return (
       <div className='bricks-row' key={row[0].y}>
-        {row.map(item => <Brick key={`${item.x}-${item.y}`}/>)}
+        {row.map(item => <Brick key={`${item.x}-${item.y}`} game_running={this.props.game_running}/>)}
       </div>
     )
   }
 
   render () {
     var rows = this.initRows()
+    var bricks_class = this.props.game_running ? 'running' : 'stopped'
 
     return (
-      <div className='bricks'>
+      <div className={`bricks ${bricks_class}`}>
         {rows.map((row) => this.renderRow(row))}
       </div>
     )

@@ -13,13 +13,42 @@
     }
 
     .brick {
-      background: $color-3-green url('card2.png');
+      background: #fff;
       border: 1px solid $color-4-dark;
       display: inline-block;
       height: 70px;
       margin: 5px;
       width: 40px;
     }
+
+    &.running {
+      .brick {
+        background: $color-4-red url('card2.png');
+        transition: background-color .1s;
+
+        &.close {
+          animation-direction: reverse;
+          animation-duration: 1s;
+          animation-name: flip_close;
+          background: $color-4-red url('card2.png');
+
+          &:hover {
+            background: darken($color-4-red, 15%) url('card2.png');
+            cursor: pointer;
+            transform: scale(1.05, 1.05);
+          }
+        }
+
+        &.open {
+          animation-duration: 1s;
+          animation-name: flip_open;
+          background: $color-1-white;
+        }
+      }
+    }
+
+
+
   }
 
   .game-controlls {
@@ -97,4 +126,18 @@
     user-select: none;
     width: 70px;
   }
+}
+
+@keyframes flip_open {
+  0%   { background: $color-4-red url('card2.png'); transform: rotateY(0deg); }
+  49%  { background: $color-4-red url('card2.png'); }
+  50%  { background: $color-1-white; transform: rotateY(90deg); }
+  100% { background: $color-1-white; transform: rotateY(180deg); }
+}
+
+@keyframes flip_close {
+  0%   { background: $color-4-red url('card2.png'); transform: rotateY(0deg); }
+  49%  { background: $color-4-red url('card2.png'); }
+  50%  { background: $color-1-white; transform: rotateY(90deg); }
+  100% { background: $color-1-white; transform: rotateY(180deg); }
 }

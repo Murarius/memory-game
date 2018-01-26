@@ -95,7 +95,8 @@ class GameContainer extends React.Component {
         {component}
         {this.controllButton()}
 
-        <Bricks width={this.state.width}
+        <Bricks game_running={this.state.game_running}
+                width={this.state.width}
                 height={this.state.height} />
       </div>
     )
