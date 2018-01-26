@@ -12,6 +12,7 @@ class Bricks extends React.Component {
     this.renderRow = this.renderRow.bind(this)
     this.initRows = this.initRows.bind(this)
     this.handleOpen = this.handleOpen.bind(this)
+    this.resetSelection = this.resetSelection.bind(this)
   }
 
   initRows() {
@@ -32,12 +33,20 @@ class Bricks extends React.Component {
   handleOpen () {
     var open_block = false
 
-    if (this.state.opened + 1 == this.props.difficulty) {
-      open_block = true
-    }
+    if (this.state.opened + 1 == this.props.difficulty) open_block = true
 
     this.setState({ opened: this.state.opened + 1,
                     open_block: open_block })
+  }
+
+  componentWillUpdate(nextProps, nextState) {
+    if (nextState.open_block != true) return
+    setTimeout(this.resetSelection, 3000);
+  }
+
+  resetSelection () {
+    this.setState({ opened: 0,
+                    open_block: false })
   }
 
   renderRow(row) {
