@@ -7,8 +7,11 @@ class Bricks extends React.Component {
   constructor (props) {
     super(props);
 
+    this.state = { opened: 0, open_block: false }
+
     this.renderRow = this.renderRow.bind(this)
     this.initRows = this.initRows.bind(this)
+    this.handleOpen = this.handleOpen.bind(this)
   }
 
   initRows() {
@@ -26,10 +29,25 @@ class Bricks extends React.Component {
     return(rows)
   }
 
+  handleOpen () {
+    var open_block = false
+
+    if (this.state.opened + 1 == this.props.difficulty) {
+      open_block = true
+    }
+
+    this.setState({ opened: this.state.opened + 1,
+                    open_block: open_block })
+  }
+
   renderRow(row) {
     return (
       <div className='bricks-row' key={row[0].y}>
-        {row.map(item => <Brick key={`${item.x}-${item.y}`} game_running={this.props.game_running}/>)}
+        {row.map(item => <Brick key={`${item.x}-${item.y}`}
+                                game_running={this.props.game_running}
+                                open_block={this.state.open_block}
+                                handle_open={this.handleOpen}
+                              />)}
       </div>
     )
   }

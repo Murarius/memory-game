@@ -6,11 +6,6 @@ class GameStatus extends React.Component {
   constructor (props) {
     super(props);
 
-    // this.state = {
-    //   width: this.props.width,
-    //   height: this.props.height,
-    //   difficulty: this.props.difficulty,
-    // }
   }
 
   render () {

@@ -76,11 +76,7 @@ class GameContainer extends React.Component {
   render () {
     let component = null;
     if (this.state.game_running) {
-      component = <GameStatus
-                    game_code = {this.state.game_code}
-                    width={this.state.width}
-                    height={this.state.height}
-                    difficulty={this.state.difficulty}/>
+      component = <GameStatus game_code={this.state.game_code}/>
     } else {
       component = <GameControll
                     width={this.state.width}
@@ -97,7 +93,8 @@ class GameContainer extends React.Component {
 
         <Bricks game_running={this.state.game_running}
                 width={this.state.width}
-                height={this.state.height} />
+                height={this.state.height}
+                difficulty={this.state.difficulty} />
       </div>
     )
   }
