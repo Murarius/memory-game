@@ -6,18 +6,7 @@ class Brick extends React.Component {
     super(props);
 
     this.state = { open: false }
-    this.flip = this.flip.bind(this)
-  }
-
-  flip () {
-    if (this.props.open_block == true) return
-    open = this.state.open
-
-    if (open == true) {
-      this.close()
-    } else {
-      this.open()
-    }
+    this.open = this.open.bind(this)
   }
 
   componentWillReceiveProps (nextProps) {
@@ -30,6 +19,12 @@ class Brick extends React.Component {
   }
 
   open () {
+    if (this.props.game_running == false) return
+
+    // if (this.props.open_block == true) return
+
+    if (this.state.open == true && this.props.open_block == false) return
+
     this.setState({open: true})
     this.props.handle_open()
   }
@@ -42,7 +37,7 @@ class Brick extends React.Component {
     var brick_class = this.state.open ? 'open' : 'close'
 
     return (
-      <div className={`brick ${brick_class}`} onClick={this.flip}>
+      <div className={`brick ${brick_class}`} onClick={this.open}>
       </div>
     )
   }

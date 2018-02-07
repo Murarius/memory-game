@@ -7,6 +7,8 @@ class Bricks extends React.Component {
   constructor (props) {
     super(props);
 
+    var flip_timeout = null
+
     this.state = { opened: 0, open_block: false }
 
     this.renderRow = this.renderRow.bind(this)
@@ -16,47 +18,56 @@ class Bricks extends React.Component {
   }
 
   initRows() {
-    var rows = []
+    var rs = []
 
     for (var i = 0; i < this.props.height; i++) {
-      var row = []
+      var r = []
 
       for (var j = 0; j < this.props.width; j++) {
-        row.push({x: j, y: i})
+        r.push(<Brick key={`${j}-${i}`}
+                        game_running={this.props.game_running}
+                        open_block={this.state.open_block}
+                        handle_open={this.handleOpen}
+                 />)
       }
-      rows.push(row)
+      rs.push(r)
     }
 
-    return(rows)
+    return(rs)
   }
 
   handleOpen () {
     var open_block = false
 
-    if (this.state.opened + 1 == this.props.difficulty) open_block = true
+    if (this.state.opened == this.props.difficulty && this.state.open_block == true) {
+      this.resetSelection()
+      return
+    } else if (this.state.opened + 1 == this.props.difficulty) {
+      open_block = true
+    }
 
     this.setState({ opened: this.state.opened + 1,
                     open_block: open_block })
   }
 
   componentWillUpdate(nextProps, nextState) {
-    if (nextState.open_block != true) return
-    setTimeout(this.resetSelection, 3000);
+    if (nextState.open_block == false) return
+    this.flip_timeout = setTimeout(this.resetSelection, 3000);
   }
 
-  resetSelection () {
-    this.setState({ opened: 0,
+  resetSelection (initial = 0) {
+    clearTimeout(this.flip_timeout)
+
+
+    this.setState({ opened: initial,
                     open_block: false })
   }
 
   renderRow(row) {
+
     return (
-      <div className='bricks-row' key={row[0].y}>
-        {row.map(item => <Brick key={`${item.x}-${item.y}`}
-                                game_running={this.props.game_running}
-                                open_block={this.state.open_block}
-                                handle_open={this.handleOpen}
-                              />)}
+      <div className='bricks-row' key={row[0].key.split('-')[1]}>
+        {row}
       </div>
     )
   }
