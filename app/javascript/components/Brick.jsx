@@ -10,26 +10,23 @@ class Brick extends React.Component {
   }
 
   componentWillReceiveProps (nextProps) {
-    if (nextProps.game_running == false &&
-        this.state.open == true) this.close()
+    if (nextProps.game_running == false) this.close()
 
     if (this.props.open_block == true &&
-        nextProps.open_block == false &&
-        this.state.open == true) this.close()
+        nextProps.open_block == false) this.close()
   }
 
   open () {
     if (this.props.game_running == false) return
-
-    // if (this.props.open_block == true) return
-
-    if (this.state.open == true && this.props.open_block == false) return
+    if (this.props.open_block == true) return
+    if (this.state.open == true) return
 
     this.setState({open: true})
     this.props.handle_open()
   }
 
   close () {
+    if (this.state.open == false) return
     this.setState({open: false})
   }
 

@@ -9,7 +9,7 @@ class Bricks extends React.Component {
 
     var flip_timeout = null
 
-    this.state = { opened: 0, open_block: false }
+    this.state = { opened: 0, bricks: [] }
 
     this.renderRow = this.renderRow.bind(this)
     this.initRows = this.initRows.bind(this)
@@ -25,42 +25,30 @@ class Bricks extends React.Component {
 
       for (var j = 0; j < this.props.width; j++) {
         r.push(<Brick key={`${j}-${i}`}
-                        game_running={this.props.game_running}
-                        open_block={this.state.open_block}
-                        handle_open={this.handleOpen}
+                      game_running={this.props.game_running}
+                      open_block={this.openBlock()}
+                      handle_open={this.handleOpen}
                  />)
       }
       rs.push(r)
     }
 
+    this.state.bricks = [].concat(...rs)
     return(rs)
   }
 
   handleOpen () {
-    var open_block = false
-
-    if (this.state.opened == this.props.difficulty && this.state.open_block == true) {
-      this.resetSelection()
-      return
-    } else if (this.state.opened + 1 == this.props.difficulty) {
-      open_block = true
-    }
-
-    this.setState({ opened: this.state.opened + 1,
-                    open_block: open_block })
+    this.setState({ opened: this.state.opened + 1})
   }
 
-  componentWillUpdate(nextProps, nextState) {
-    if (nextState.open_block == false) return
-    this.flip_timeout = setTimeout(this.resetSelection, 3000);
+  openBlock () {
+    return this.state.opened >= this.props.difficulty;
   }
 
-  resetSelection (initial = 0) {
+  resetSelection () {
     clearTimeout(this.flip_timeout)
 
-
-    this.setState({ opened: initial,
-                    open_block: false })
+    this.setState({ opened: 0 })
   }
 
   renderRow(row) {
@@ -75,6 +63,10 @@ class Bricks extends React.Component {
   render () {
     var rows = this.initRows()
     var bricks_class = this.props.game_running ? 'running' : 'stopped'
+
+    if (this.openBlock()) {
+      this.flip_timeout = setTimeout(this.resetSelection, 3000);
+    }
 
     return (
       <div className={`bricks ${bricks_class}`}>
