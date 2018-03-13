@@ -14,7 +14,7 @@ class Bricks extends React.Component {
     this.renderRow = this.renderRow.bind(this)
     this.initRows = this.initRows.bind(this)
     this.handleOpen = this.handleOpen.bind(this)
-    this.resetSelection = this.resetSelection.bind(this)
+    this.handleClose = this.handleClose.bind(this)
   }
 
   initRows() {
@@ -28,6 +28,7 @@ class Bricks extends React.Component {
                       game_running={this.props.game_running}
                       open_block={this.openBlock()}
                       handle_open={this.handleOpen}
+                      handle_close={this.handleClose}
                  />)
       }
       rs.push(r)
@@ -41,18 +42,20 @@ class Bricks extends React.Component {
     this.setState({ opened: this.state.opened + 1})
   }
 
+  handleClose () {
+    console.log(`closed ${this.state.opened}`);
+
+    this.setState(function(previousState, currentProps) {
+      return {opened: previousState.opened - 1};
+    });
+
+  }
+
   openBlock () {
     return this.state.opened >= this.props.difficulty;
   }
 
-  resetSelection () {
-    clearTimeout(this.flip_timeout)
-
-    this.setState({ opened: 0 })
-  }
-
   renderRow(row) {
-
     return (
       <div className='bricks-row' key={row[0].key.split('-')[1]}>
         {row}
@@ -63,10 +66,6 @@ class Bricks extends React.Component {
   render () {
     var rows = this.initRows()
     var bricks_class = this.props.game_running ? 'running' : 'stopped'
-
-    if (this.openBlock()) {
-      this.flip_timeout = setTimeout(this.resetSelection, 3000);
-    }
 
     return (
       <div className={`bricks ${bricks_class}`}>

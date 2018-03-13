@@ -7,6 +7,7 @@ class Brick extends React.Component {
 
     this.state = { open: false }
     this.open = this.open.bind(this)
+    this.close = this.close.bind(this)
   }
 
   componentWillReceiveProps (nextProps) {
@@ -26,12 +27,20 @@ class Brick extends React.Component {
   }
 
   close () {
+    clearTimeout(this.flip_timeout)
+
     if (this.state.open == false) return
     this.setState({open: false})
+
+    this.props.handle_close()
   }
 
   render () {
     var brick_class = this.state.open ? 'open' : 'close'
+
+    if (this.props.open_block == true) {
+      this.flip_timeout = setTimeout(this.close, 3000);
+    }
 
     return (
       <div className={`brick ${brick_class}`} onClick={this.open}>
