@@ -12,7 +12,7 @@ RSpec.feature 'BricsControll', type: :feature, js: true do
           expect(page).to have_css('.brick.open', count: 0)
         end
 
-        scenario 'user cant open brick' do
+        scenario "user can't open brick" do
           first(:css, '.brick.close').click
           expect(page).to have_css('.brick.open', count: 0)
         end
@@ -33,22 +33,11 @@ RSpec.feature 'BricsControll', type: :feature, js: true do
         end
 
         scenario 'brics wont open if difficulty meet' do
-          first(:css, '.brick.close').click
-          expect(page).to have_css('.brick.open', count: 1)
-          first(:css, '.brick.close').click
-          expect(page).to have_css('.brick.open', count: 2)
-          first(:css, '.brick.close').click
-          expect(page).to have_css('.brick.open', count: 2)
+          check_difficulty(2)
         end
 
         scenario 'selection resets after 3000 ms' do
-          first(:css, '.brick.close').click
-          expect(page).to have_css('.brick.open', count: 1)
-          sleep 3
-          first(:css, '.brick.close').click
-          expect(page).to have_css('.brick.open', count: 2)
-          sleep 3
-          expect(page).to have_css('.brick.open', count: 0)
+          check_auto_reset(2)
         end
       end
     end
@@ -84,26 +73,11 @@ RSpec.feature 'BricsControll', type: :feature, js: true do
         end
 
         scenario 'brics wont open if difficulty meet' do
-          first(:css, '.brick.close').click
-          expect(page).to have_css('.brick.open', count: 1)
-          first(:css, '.brick.close').click
-          expect(page).to have_css('.brick.open', count: 2)
-          first(:css, '.brick.close').click
-          expect(page).to have_css('.brick.open', count: 3)
-          first(:css, '.brick.close').click
-          expect(page).to have_css('.brick.open', count: 3)
+          check_difficulty(3)
         end
 
         scenario 'selection resets after 3000 ms' do
-          first(:css, '.brick.close').click
-          expect(page).to have_css('.brick.open', count: 1)
-          first(:css, '.brick.close').click
-          expect(page).to have_css('.brick.open', count: 2)
-          sleep 3
-          first(:css, '.brick.close').click
-          expect(page).to have_css('.brick.open', count: 3)
-          sleep 3
-          expect(page).to have_css('.brick.open', count: 0)
+          check_auto_reset(3)
         end
       end
     end
@@ -119,106 +93,48 @@ RSpec.feature 'BricsControll', type: :feature, js: true do
       find(:css, '.start-btn').click
     end
 
-    context 'difficulty 2' do
-      context 'game closed' do
-        scenario 'all brics are closed' do
-          expect(page).to have_css('.brick.open', count: 0)
-        end
-
-        scenario 'user cant open brick' do
-          first(:css, '.brick.close').click
-          expect(page).to have_css('.brick.open', count: 0)
-        end
-      end
-
-      context 'game opened' do
-        before do
-          find(:css, '.start-btn').click
-        end
-
-        scenario 'all brics are closed' do
-          expect(page).to have_css('.brick.open', count: 0)
-        end
-
-        scenario 'brick open after click' do
-          first(:css, '.brick.close').click
-          expect(page).to have_css('.brick.open', count: 1)
-        end
-
-        scenario 'brics wont open if difficulty meet' do
-          first(:css, '.brick.close').click
-          expect(page).to have_css('.brick.open', count: 1)
-          first(:css, '.brick.close').click
-          expect(page).to have_css('.brick.open', count: 2)
-          first(:css, '.brick.close').click
-          expect(page).to have_css('.brick.open', count: 2)
-        end
-
-        scenario 'selection resets after 3000 ms' do
-          first(:css, '.brick.close').click
-          expect(page).to have_css('.brick.open', count: 1)
-          sleep 3
-          first(:css, '.brick.close').click
-          expect(page).to have_css('.brick.open', count: 2)
-          sleep 3
-          expect(page).to have_css('.brick.open', count: 0)
-        end
-      end
-    end
-
     context 'difficulty 3' do
       before do
         find(:css, ".game-controlls a[name='difficulty'] .fa-caret-up").click
       end
 
-      context 'game closed' do
-        scenario 'all brics are closed' do
-          expect(page).to have_css('.brick.open', count: 0)
-        end
-
-        scenario 'user cant open brick' do
-          first(:css, '.brick.close').click
-          expect(page).to have_css('.brick.open', count: 0)
-        end
-      end
-
       context 'game opened' do
         before do
           find(:css, '.start-btn').click
         end
 
-        scenario 'all brics are closed' do
-          expect(page).to have_css('.brick.open', count: 0)
-        end
-
-        scenario 'brick open after click' do
-          first(:css, '.brick.close').click
-          expect(page).to have_css('.brick.open', count: 1)
-        end
-
         scenario 'brics wont open if difficulty meet' do
-          first(:css, '.brick.close').click
-          expect(page).to have_css('.brick.open', count: 1)
-          first(:css, '.brick.close').click
-          expect(page).to have_css('.brick.open', count: 2)
-          first(:css, '.brick.close').click
-          expect(page).to have_css('.brick.open', count: 3)
-          first(:css, '.brick.close').click
-          expect(page).to have_css('.brick.open', count: 3)
+          check_difficulty(3)
         end
 
         scenario 'selection resets after 3000 ms' do
-          first(:css, '.brick.close').click
-          expect(page).to have_css('.brick.open', count: 1)
-          first(:css, '.brick.close').click
-          expect(page).to have_css('.brick.open', count: 2)
-          sleep 3
-          first(:css, '.brick.close').click
-          expect(page).to have_css('.brick.open', count: 3)
-          sleep 3
-          expect(page).to have_css('.brick.open', count: 0)
+          check_auto_reset(3)
         end
       end
     end
+  end
+
+  def check_difficulty(difficulty)
+    difficulty.times do |i|
+      first(:css, '.brick.close').click
+      expect(page).to have_css('.brick.open', count: i + 1)
+    end
+
+    first(:css, '.brick.close').click
+    expect(page).to have_css('.brick.open', count: difficulty)
+  end
+
+  def check_auto_reset(difficulty)
+    (difficulty - 1).times do |i|
+      first(:css, '.brick.close').click
+      expect(page).to have_css('.brick.open', count: i + 1)
+    end
+
+    sleep 3
+    first(:css, '.brick.close').click
+    expect(page).to have_css('.brick.open', count: difficulty)
+
+    sleep 3
+    expect(page).to have_css('.brick.open', count: 0)
   end
 end
