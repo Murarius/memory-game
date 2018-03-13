@@ -6,7 +6,7 @@ import Bricks from './Bricks'
 
 class GameContainer extends React.Component {
   constructor (props) {
-    super(props);
+    super(props)
 
     this.state = {
       width: props.game_defaults.width,

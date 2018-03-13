@@ -5,7 +5,7 @@ import Brick from './Brick';
 class Bricks extends React.Component {
 
   constructor (props) {
-    super(props);
+    super(props)
 
     var flip_timeout = null
 
@@ -43,16 +43,13 @@ class Bricks extends React.Component {
   }
 
   handleClose () {
-    console.log(`closed ${this.state.opened}`);
-
     this.setState(function(previousState, currentProps) {
       return {opened: previousState.opened - 1};
     });
-
   }
 
   openBlock () {
-    return this.state.opened >= this.props.difficulty;
+    return this.state.opened >= this.props.difficulty
   }
 
   renderRow(row) {

@@ -4,7 +4,7 @@ import Timer from './Timer'
 
 class GameStatus extends React.Component {
   constructor (props) {
-    super(props);
+    super(props)
   }
 
   render () {

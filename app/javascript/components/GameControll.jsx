@@ -2,7 +2,7 @@ import React from "react"
 import PropTypes from "prop-types"
 class GameControll extends React.Component {
   constructor (props) {
-    super(props);
+    super(props)
 
     this.state = {
       width: this.props.width,

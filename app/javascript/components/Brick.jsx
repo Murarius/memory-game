@@ -19,8 +19,8 @@ class Brick extends React.Component {
 
   open () {
     if (this.props.game_running == false) return
-    if (this.props.open_block == true) return
-    if (this.state.open == true) return
+    if (this.props.open_block) return
+    if (this.state.open) return
 
     this.setState({open: true})
     this.props.handle_open()
@@ -39,7 +39,7 @@ class Brick extends React.Component {
     var brick_class = this.state.open ? 'open' : 'close'
 
     if (this.props.open_block == true) {
-      this.flip_timeout = setTimeout(this.close, 3000);
+      this.flip_timeout = setTimeout(this.close, 3000)
     }
 
     return (
